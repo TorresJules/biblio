@@ -1,0 +1,96 @@
+/* body{
+    background-color: rgba(255, 237, 221, 0.8);
+} */
+header{
+    background-size:cover;
+}
+#headerImg{
+    width:100%;
+    position:relative;
+    top:0;
+    left:0;
+    z-index:1;
+}
+#navbar{
+    height:20vh;
+    background-color: rgba(57, 45, 45, 0.7);
+    z-index:9;
+}
+#logoTop{
+    height:100%;
+    margin-left:10px;
+}
+#linkLogo{
+    height:100%;
+}
+
+/* SEARCHBAR */
+#searchbar{
+    margin-right: 10px;
+}
+
+.titreHead{
+    font-size: 3rem;
+    color:white;
+    width:50vw;
+    height:40vh;
+    background-color: rgba(57, 45, 45, 0.7);
+    border-radius: 5px;
+
+}
+.quoteHead{
+    font-style:italic;
+    color:lightgrey;
+    font-size:2rem;
+}
+
+/* A LA UNE */
+#alaUne{
+    height: 1000px;
+    width:90vw;
+    /* background-color: rgba(57, 45, 45, 0.7); */
+    /* margin:auto; */
+    z-index:auto;
+}
+
+.tile{
+    height:280px;
+}
+.contain{
+    object-fit:contain;
+}
+.newImg{
+    width:100%;
+}
+p{
+    margin:0 !important;
+}
+
+/* MAP */
+#boxMap{
+    background-color: rgba(57, 45, 45, 0.7);
+
+}
+
+/* FORMULAIRE DE CONTACT */
+#contact{
+    background-color: rgba(57, 45, 45, 0.7);
+}
+label{
+    color:white;
+}
+
+/* BORDURE */
+.bordure {
+    top:-30px;
+    position: relative;
+    height: 31px !important;
+    background: url(https://www.woody-van.com/theme/site/images/bg/bg-model-border-bottom.png) top center no-repeat;
+    width: 100vw !important;
+    margin-bottom: 30px;
+    border: none !important;
+}
+footer{
+    width:auto !important;
+    overflow: hidden !important;
+}
