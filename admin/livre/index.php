@@ -7,14 +7,12 @@ if (!isConnect()) {
 
     // REQUETE SQL POUR RECUPERER LES LIVRES EN BDD
     $sql= 'SELECT *
-    FROM livre
-    INNER JOIN categorie_livre ON livre.id = categorie_livre.id_livre
-    INNER JOIN categorie ON categorie_livre.id_categorie = categorie.id';
+    FROM livre';
     // EXECUTER LA REQUETE
     $requete = $bdd->query($sql);
     // RECUPERATION DES INFOS
     $livres = $requete->fetchAll(PDO::FETCH_ASSOC);
-    var_dump($livres);
+    // var_dump($livres);
     
 ?>
 
@@ -79,6 +77,7 @@ if (!isConnect()) {
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Titre</th>
+                                    <th scope="col">Auteur</th>
                                     <th scope="col">Num_ISBN</th>
                                     <th scope="col">Illustration</th>
                                     <th scope="col">Résumé</th>
@@ -91,16 +90,44 @@ if (!isConnect()) {
                             </thead>
                             <tbody>
                                 <?php foreach ($livres as $livre) : ?>
+
+                                    <!-- REQUETE POUR AVOIR LES CATEGORIES -->
+                                    <?php $reqcat='SELECT categorie.libelle FROM categorie_livre
+                                    INNER JOIN categorie ON categorie.id = categorie_livre.id_categorie
+                                    WHERE id_livre = :id';
+                                    $data = [':id' => $livre['id']];
+                                    $reqcat = $bdd->prepare($reqcat);
+                                    $reqcat->execute($data);
+                                    $cat = $reqcat->fetchAll(PDO::FETCH_NUM);
+                            
+                                    if (count($cat)>1){
+                                        $cat=array_merge([],...$cat);
+                                    }else{
+                                        $cat = $cat[0];
+                                    }
+
+                                    // REQUETE POUR AVOIR LES AUTEURS
+                                    $reqaut = 'SELECT auteur.nom, auteur.prenom FROM auteur_livre
+                                    INNER JOIN auteur ON auteur.id = auteur_livre.id_auteur
+                                    WHERE id_livre = :id';
+                                    $data = [':id' => $livre['id']];
+                                    $reqaut = $bdd->prepare($reqaut);
+                                    $reqaut->execute($data);
+                                    $aut = $reqaut->fetchAll(PDO::FETCH_ASSOC);
+                                    var_dump($aut);
+                                    ?>
+ 
                                     <tr>
-                                        <th scope="row"><?= $livre['id_livre'] ?></th>
+                                        <th scope="row"><?= $livre['id'] ?></th>
                                         <td><?= $livre['titre'] ?></td>
+                                        <td><?= $aut['prenom'] . " " . $aut['nom'] ?></td>
                                         <td><?= $livre['num_ISBN'] ?></td>
                                         <td><?= $livre['illustration'] ?></td>
                                         <td><input value="<?= $livre['resume'] ?>"  disabled="disabled"/></td>
                                         <td><?= $livre['prix'] ?></td>
                                         <td><?= $livre['nb_pages'] ?></td>
                                         <td><input value="<?php $date = date_create($livre['date_achat']); echo $date->format('d-m-Y'); ?>"/></td>
-                                        <td><?= $livre['libelle']?></td>
+                                        <td><?= implode($cat)?></td>
                                         <td><?= $livre['disponibilite'] ?></td>
                                         <td><a href="http://localhost/bibliotheque/admin/livre/update.php?id=<?= $livre['id'] ?>" class="btn btn-warning">Modifier</a>
                                         <td><a href="http://localhost/bibliotheque/admin/livre/action.php?id=<?= $livre['id'] ?>" class="btn btn-danger">Supprimer</a>
