@@ -34,6 +34,8 @@ if (!isConnect()) {
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="<?= URL_ADMIN ?>css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link href="<?= URL_ADMIN ?>css/overflow-x.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -114,13 +116,15 @@ if (!isConnect()) {
                                     $reqaut = $bdd->prepare($reqaut);
                                     $reqaut->execute($data);
                                     $aut = $reqaut->fetchAll(PDO::FETCH_ASSOC);
-                                    var_dump($aut);
                                     ?>
  
+
+
+
                                     <tr>
                                         <th scope="row"><?= $livre['id'] ?></th>
                                         <td><?= $livre['titre'] ?></td>
-                                        <td><?= $aut['prenom'] . " " . $aut['nom'] ?></td>
+                                        <td><?= $aut[0]['nom'] ?></td>
                                         <td><?= $livre['num_ISBN'] ?></td>
                                         <td><?= $livre['illustration'] ?></td>
                                         <td><input value="<?= $livre['resume'] ?>"  disabled="disabled"/></td>

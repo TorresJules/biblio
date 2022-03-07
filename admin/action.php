@@ -17,7 +17,7 @@ if (isset($_POST['btn_connect'])){
     $req = $bdd->prepare($sql);
     $req->execute([$mail]);
     $user = $req->fetch(PDO::FETCH_ASSOC);
-    // echo password_hash('eddySalarie', PASSWORD_DEFAULT);
+    // echo password_hash('martineBoss', PASSWORD_DEFAULT);
     // die;
 
     if (!$user){
